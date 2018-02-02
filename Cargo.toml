@@ -1,0 +1,12 @@
+[package]
+name = "lz_shared_udp_stream"
+version = "0.1.0"
+authors = ["Luke Horsley <luke.horsley@offset1337.co.uk>"]
+
+[dependencies]
+futures = "0.1.18"
+tokio-core = "0.1.12"
+log = "0.4.1"
+
+[dev-dependencies]
+simple_logger = "0.4.0"
