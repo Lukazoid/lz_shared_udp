@@ -123,7 +123,7 @@ mod tests {
     use std::sync::Arc;
 
     fn bind_sockets(handle: &Handle) -> (UdpSocket, UdpSocket) {
-        let any_address = "[::]:0".parse().unwrap();
+        let any_address = "0.0.0.0:0".parse().unwrap();
 
         let first = UdpSocket::bind(&any_address, handle).unwrap();
         let second = UdpSocket::bind(&any_address, handle).unwrap();
@@ -179,7 +179,7 @@ mod tests {
     where
         R: Clone + Deref<Target = UdpSocket>,
     {
-        let loopback = "::1".parse().unwrap();
+        let loopback = "127.0.0.1".parse().unwrap();
 
         let mut second_socket_addr = second_socket.local_addr().unwrap();
         second_socket_addr.set_ip(loopback);
