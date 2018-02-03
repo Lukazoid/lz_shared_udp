@@ -2,6 +2,14 @@
 name = "lz_shared_udp_stream"
 version = "0.1.0"
 authors = ["Luke Horsley <luke.horsley@offset1337.co.uk>"]
+description = "Functionality for a shared UDP socket"
+repository = "https://github.com/lukazoid/lz_shared_udp"
+keywords= ["tokio", "UDP", "socket"]
+categories = ["asynchronous", "network-programming"]
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "Lukazoid/lz_shared_udp" }
 
 [dependencies]
 futures = "0.1.18"
