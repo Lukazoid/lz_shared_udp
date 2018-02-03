@@ -123,7 +123,7 @@ mod tests {
     use std::sync::Arc;
 
     fn bind_sockets(handle: &Handle) -> (UdpSocket, UdpSocket) {
-        let any_address = "[::0]:0".parse().unwrap();
+        let any_address = "[::]:0".parse().unwrap();
 
         let first = UdpSocket::bind(&any_address, handle).unwrap();
         let second = UdpSocket::bind(&any_address, handle).unwrap();
