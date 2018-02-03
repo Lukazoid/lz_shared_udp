@@ -6,11 +6,3 @@ rust:
 matrix:
   allow_failures:
     - rust: nightly
-  include:
-    - os: linux
-      dist: trusty
-      sudo: false
-    - os: linux
-      dist: precise
-      sudo: false
-    - os: osx
