@@ -11,7 +11,7 @@ use futures::{Async, AsyncSink, Poll, Sink, StartSend, Stream};
 use tokio_core::net::{UdpCodec, UdpSocket};
 
 #[must_use = "sinks do nothing unless polled"]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct SharedUdpFramed<R, C> {
     socket: R,
     codec: C,
@@ -19,6 +19,12 @@ pub struct SharedUdpFramed<R, C> {
     rd: Vec<u8>,
     wr: Vec<u8>,
     flushed: bool,
+}
+
+impl<R: Clone, C: Clone> Clone for SharedUdpFramed<R, C> {
+    fn clone(&self) -> Self {
+        Self::new(self.socket.clone(), self.codec.clone())
+    }
 }
 
 impl<R, C> SharedUdpFramed<R, C> {
