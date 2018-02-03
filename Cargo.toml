@@ -1,5 +1,5 @@
 [package]
-name = "lz_shared_udp_stream"
+name = "lz_shared_udp"
 version = "0.1.0"
 authors = ["Luke Horsley <luke.horsley@offset1337.co.uk>"]
 description = "Functionality for a shared UDP socket"
