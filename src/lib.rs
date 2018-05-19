@@ -4,10 +4,10 @@ extern crate log;
 #[macro_use]
 extern crate tokio_core;
 
-use std::ops::Deref;
+use futures::{Async, AsyncSink, Poll, Sink, StartSend, Stream};
 use std::io::{Error as IoError, ErrorKind as IoErrorKind};
 use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
-use futures::{Async, AsyncSink, Poll, Sink, StartSend, Stream};
+use std::ops::Deref;
 use tokio_core::net::{UdpCodec, UdpSocket};
 
 #[must_use = "sinks do nothing unless polled"]
@@ -37,6 +37,30 @@ impl<R, C> SharedUdpFramed<R, C> {
             wr: Vec::with_capacity(8 * 1024),
             flushed: true,
         }
+    }
+
+    pub fn socket(&self) -> &R {
+        &self.socket
+    }
+
+    pub fn socket_mut(&mut self) -> &mut R {
+        &mut self.socket
+    }
+
+    pub fn into_socket(self) -> R {
+        self.socket
+    }
+
+    pub fn codec(&self) -> &C {
+        &self.codec
+    }
+
+    pub fn codec_mut(&mut self) -> &mut C {
+        &mut self.codec
+    }
+
+    pub fn into_codec(self) -> C {
+        self.codec
     }
 }
 
@@ -119,14 +143,14 @@ where
 #[cfg(test)]
 mod tests {
     use super::SharedUdpSocket;
-    use tokio_core::net::{UdpCodec, UdpSocket};
-    use tokio_core::reactor::{Core, Handle};
     use futures::{Future, Sink, Stream};
     use std::io::Result as IoResult;
     use std::net::SocketAddr;
     use std::ops::Deref;
     use std::rc::Rc;
     use std::sync::Arc;
+    use tokio_core::net::{UdpCodec, UdpSocket};
+    use tokio_core::reactor::{Core, Handle};
 
     fn bind_sockets(handle: &Handle) -> (UdpSocket, UdpSocket) {
         let any_address = "0.0.0.0:0".parse().unwrap();
